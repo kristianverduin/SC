@@ -48,16 +48,26 @@ curl -k http://$NODE_IP:$NODE_PORT
 
 Scaling (with n replicas)
 
-kubectl scale deployment api-deployment --replicas=n
+kubectl scale deployment api-deployment-v1 --replicas=n
 
 Scaling (automically)
 
-kubectl autoscale deployment api-deployment --min=n --max=x --cpu-percent=z
+kubectl autoscale deployment api-deployment-v1 --min=5 --max=6 --cpu-percent=50
 where n is the minimum number of replicas, x is the maximum number of replicas and z is the cpu percentage it should use
 
 To restart the application
 
-kubectl rollout restart deployment/api-deployment
+sudo docker build -t localhost:32000/api .
+sudo docker push localhost:32000/api
+kubectl rollout restart deployment/api-deployment-v1
+kubectl rollout history deployment/api-deplotment-v1
+
+kubectl apply -f canary-deployment.yaml
+kubectl scale --replicas=4 deploy api-deployment-v1
+kubectl get pods --show-labels
+kubectl scale --replicas=5 deploy api-deployment-v2
+kubectl delete deploy api-deployment-v1
+kubectl get pods --show-labels
 
 To uninstall the helm chart
 
