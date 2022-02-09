@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-deployment-v1
+  name: api-deployment-v2
   labels:
     app: api
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: api
-      version: v1.0.0
+      version: v2.0.0
   template:
     metadata:
       labels:
         app: api
-        version: v1.0.0
+        version: v2.0.0
     spec:
       containers:
       - name: api-container
@@ -24,4 +24,4 @@ spec:
         - containerPort: 5000
         env:
         - name: VERSION
-          value: v1.0.0
+          value: v2.0.0
