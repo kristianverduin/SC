@@ -40,9 +40,9 @@ Based on blog-api: https://github.com/olawalejarvis/blog_api_tutorial
 Use kubectl get svc to get the ClusterIP of the api
 
 Test API connection using
-
-curl -k $CLUSTER_IP:5000
-
+```
+  curl -k https://$CLUSTER_IP:5000
+```
 ## Deploying the API with Helm chart
 ```
   microk8s helm3 install ./helm-charts/rest-api-chart --generate-name
@@ -50,7 +50,7 @@ curl -k $CLUSTER_IP:5000
 
 Execute the recommended commands to get the nodePort and nodeIP, then test the API connection by using
 ```
-curl -k https://$NODE_IP:$NODE_PORT
+  curl -k https://$NODE_IP:$NODE_PORT
 ```
 
 ## POSTS
