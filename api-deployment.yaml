@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api-container
+        image: localhost:32000/api:latest
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_ENV
+          value: "development"
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: DATABASE_URL

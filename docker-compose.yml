@@ -1,0 +1,37 @@
+version: "3.3"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    networks:
+      - frontend
+    depends_on:
+      - redis
+        
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379"
+    networks:
+      - frontend
+        
+  db:
+    image: postgres:13.1-alpine
+    volumes:
+      - db-data:/data/dbdata
+    ports: 
+      - "30001"
+    networks:
+      - backend
+    environment:
+      POSTGRES_DB: "docker"
+      POSTGRES_PASSWORD: "docker"
+      POST_GRES_USER: "docker"
+      
+networks:
+   frontend:
+   backend:
+   
+volumes:
+  db-data:

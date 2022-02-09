@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: docker
+  POSTGRES_USER: docker
+  DATABASE_URL: postgres://name:password@host:port/postgresdb
